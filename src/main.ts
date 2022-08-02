@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import 'normalize.css'
+import '@/assets/styles/init.scss'
+
 import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 
