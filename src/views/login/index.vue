@@ -5,11 +5,10 @@
       <Panel></Panel>
       <div class="password-options">
         <div class="left-box">
-          <div class="icon"></div>
-          <span class="text">记住密码</span>
+          <el-checkbox v-model="isxxx" label="记住密码" />
         </div>
         <div class="right-box">
-          <span class="text">忘记密码</span>
+          <el-link type="primary" class="forgetPassword">忘记密码</el-link>
         </div>
       </div>
       <el-button class="btn" type="primary">立即登录</el-button>
@@ -46,7 +45,7 @@ export default {
 
   .password-options {
     width: 100%;
-    margin: 10px 0;
+    margin: 6px 0;
     display: flex;
     justify-content: space-between;
     color: #409dff;
@@ -68,5 +67,8 @@ export default {
     width: 100%;
     height: 40px;
   }
+}
+.forgetPassword {
+  height: 32px;
 }
 </style>

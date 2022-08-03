@@ -1,17 +1,39 @@
 <template>
   <div class='panel-container'>
     <el-tabs type="border-card" stretch style="width: 300px">
-      <el-tab-pane label="账号登录">
-        <el-form :model="usernameForm">
-          <el-form-item label="账号" label-width="60px">
+
+      <!-- 账号登录 tabs -->
+      <el-tab-pane>
+        <template #label>
+          <span class="custom-tabs-label">
+            <el-icon :size="20">
+              <Avatar />
+            </el-icon>
+            <span class="text">账号登录</span>
+          </span>
+        </template>
+
+        <el-form :model="usernameForm" :rules="usernameFormRules">
+          <el-form-item prop="username" label="账号" label-width="60px">
             <el-input v-model="usernameForm.username" />
           </el-form-item>
           <el-form-item label="密码" label-width="60px">
-            <el-input v-model="usernameForm.password" />
+            <el-input type="password" v-model="usernameForm.password" />
           </el-form-item>
         </el-form>
       </el-tab-pane>
-      <el-tab-pane label="手机登录">
+
+      <!-- 手机登录 tabs -->
+      <el-tab-pane>
+        <template #label>
+          <span class="custom-tabs-label">
+            <el-icon :size="20">
+              <Iphone />
+            </el-icon>
+            <span class="text">手机登录</span>
+          </span>
+        </template>
+
         <el-form :model="phoneForm" label-width="120px">
           <el-form-item label="手机号" label-width="60px">
             <el-input v-model="phoneForm.username" />
@@ -24,6 +46,7 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
+
     </el-tabs>
   </div>
 </template>
@@ -44,9 +67,23 @@ export default {
       password: ''
     })
 
+    const usernameFormRules = {
+      // 表单验证规则
+      username: [
+        { required: true, trigger: 'blur', message: '不能为空' }, // 不能为空
+        {
+          pattern: /^1[3-9]\d{9}$/,
+          message: '手机号格式不正确',
+          trigger: 'blur'
+        } // 手机号格式
+        // { trigger: 'blur', validator: validateImgCode }  // 第三条验证规则
+      ]
+    }
+
     return {
       usernameForm,
-      phoneForm
+      phoneForm,
+      usernameFormRules
     }
   }
 }
@@ -57,6 +94,14 @@ export default {
   display: flex;
   .btn {
     margin-left: 10px;
+  }
+}
+.custom-tabs-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .text {
+    margin-left: 3px;
   }
 }
 </style>
