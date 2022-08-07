@@ -2,27 +2,42 @@
   <div class='login-container'>
     <div class="main">
       <h1 class="title">后台管理系统</h1>
-      <Panel></Panel>
+      <Panel ref="panelRef"></Panel>
       <div class="password-options">
         <div class="left-box">
-          <el-checkbox v-model="isxxx" label="记住密码" />
+          <el-checkbox v-model="isRememberPassword" label="记住密码" />
         </div>
         <div class="right-box">
           <el-link type="primary" class="forgetPassword">忘记密码</el-link>
         </div>
       </div>
-      <el-button class="btn" type="primary">立即登录</el-button>
+      <el-button class="btn" type="primary" @click="login">立即登录</el-button>
     </div>
   </div>
 </template>
-<script>
-import Panel from './components/panel.vue'
-export default {
+<script lang="ts">
+import Panel from './components/Panel2.vue'
+import { defineComponent, ref } from 'vue'
+export default defineComponent({
   name: 'Login',
   components: {
     Panel
+  },
+  setup() {
+    const isRememberPassword = ref(!!localStorage.getItem('isRememberPassword')) // 是否 记住密码
+    const panelRef = ref()
+
+    const login = () => {
+      panelRef.value.$refs.accountTabRef.login(isRememberPassword.value)
+    }
+
+    return {
+      isRememberPassword,
+      login,
+      panelRef
+    }
   }
-}
+})
 </script>
 <style lang='scss' scoped>
 .login-container {
