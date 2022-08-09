@@ -17,7 +17,9 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    "prettier/prettier": 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off', // 是否 禁用 any 类型
-    "prettier/prettier": 'off'
+    '@typescript-eslint/explicit-module-boundary-types': 'off' // 是否 允许函数返回值自动推断
   }
 }

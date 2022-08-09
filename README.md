@@ -1,4 +1,4 @@
-# zzrs-pc-vue3-shop
+# zzrs-pc-vue3-admin
 
 ## Project setup
 
