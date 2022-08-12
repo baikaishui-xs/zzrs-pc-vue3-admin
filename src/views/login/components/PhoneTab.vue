@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'PhoneTab',
   setup() {
     const phoneForm = reactive({
-      username: '',
+      username: '功能还在开发中...',
       password: ''
     })
     return {

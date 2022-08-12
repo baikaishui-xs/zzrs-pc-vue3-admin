@@ -27,7 +27,7 @@ export default defineComponent({
     const isRememberPassword = ref(!!localStorage.getItem('isRememberPassword')) // 是否 记住密码
     const panelRef = ref()
 
-    const login = () => {
+    const login = async () => {
       panelRef.value.$refs.accountTabRef.login(isRememberPassword.value)
     }
 

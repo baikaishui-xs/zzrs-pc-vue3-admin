@@ -1,8 +1,18 @@
 import { createStore } from 'vuex'
 
-export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+import demo from './modules/storeDemo'
+import user from './modules/storeUser'
+
+const store = createStore({
+  modules: { // 注册模块
+    demo,
+    user
+  },
 })
+
+export function setupStore() { // 存储读取本地缓存的方法，用于统一导出
+  store.dispatch('user/loadLocalLogin')
+  store.dispatch('user/loadLocalUserInfo')
+}
+
+export default store

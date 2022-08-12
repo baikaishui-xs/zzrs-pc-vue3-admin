@@ -11,10 +11,15 @@
 <script lang='ts'>
 import { defineComponent, reactive, ref } from 'vue'
 import { ElForm } from 'element-plus'
-import { userLogin } from '@/api/username'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 export default defineComponent({
   name: 'AccountTab',
   setup() {
+    const store = useStore()
+    const router = useRouter()
+
     const usernameForm = reactive({
       name: localStorage.getItem('name') || '', // 账号
       password: localStorage.getItem('password') || '' // 密码
@@ -36,7 +41,8 @@ export default defineComponent({
     const login = (isRememberPassword: boolean) => {
       usernameFormRef.value?.validate(async (isOK) => {
         if (isOK) {
-          const result = await userLogin(usernameForm)
+          await store.dispatch('user/userLogin', usernameForm)
+          router.push('./main')
           if (isRememberPassword) {
             localStorage.setItem('name', usernameForm.name)
             localStorage.setItem('password', usernameForm.password)
