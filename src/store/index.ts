@@ -13,6 +13,7 @@ const store = createStore({
 export function setupStore() { // 存储读取本地缓存的方法，用于统一导出
   store.dispatch('user/loadLocalLogin')
   store.dispatch('user/loadLocalUserInfo')
+  store.dispatch('user/loadLocalRoleMenuTree')
 }
 
 export default store

@@ -1,10 +1,11 @@
 import { Module } from 'vuex'
-import { userLogin, getUserInfo } from '@/api/apiUsername'
+import { userLogin, getUserInfo, getRoleMenuTree } from '@/api/apiUsername'
 import localCache from '@/utils/cache'
 
 interface ILoginState {
   token: string,
-  userInfo: any
+  userInfo: any,
+  roleMenuTree: any
 }
 interface demo {
   name: string
@@ -17,6 +18,7 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
     return {
       token: '', // token
       userInfo: {}, // 用户信息
+      roleMenuTree: {} // 角色菜单树
     }
   },
   mutations: { // 修改 store 中的数据
@@ -25,16 +27,22 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
     },
     setUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
+    },
+    setRoleMenuTree(state, roleMenuTree: any) {
+      state.roleMenuTree = roleMenuTree
     }
   },
   actions: { // 处理异步任务
     async userLogin({ commit }, data: demo) { // 用户登录
       const {token, id} = await userLogin(data)
       const userInfo = await getUserInfo(id)
+      const roleMenuTree = await getRoleMenuTree()
       commit('setToken', token)
       commit('setUserInfo', userInfo)
+      commit('setRoleMenuTree', roleMenuTree)
       localCache.setCache('token', token)
       localCache.setCache('userInfo', userInfo)
+      localCache.setCache('roleMenuTree', roleMenuTree)
     },
     loadLocalLogin({ commit }) {
       const token = localCache.getCache('token')
@@ -46,6 +54,12 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       const userInfo = localCache.getCache('userInfo')
       if (userInfo) {
         commit('setUserInfo', userInfo)
+      }
+    },
+    loadLocalRoleMenuTree({ commit }) {
+      const roleMenuTree = localCache.getCache('roleMenuTree')
+      if (roleMenuTree) {
+        commit('setRoleMenuTree', roleMenuTree)
       }
     }
   },

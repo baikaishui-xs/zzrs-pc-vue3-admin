@@ -1,21 +1,38 @@
 <template>
   <el-container style="height: 100%">
-    <el-aside width="200px">
-      <Aside></Aside>
+    <el-aside :width="isExpandIcon ? '64px' : '200px'">
+      <Aside :isExpandIcon="isExpandIcon"></Aside>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
-      <el-main>Main</el-main>
+      <el-header>
+        <Header @changeIsExpandIcon="changeIsExpandIcon"></Header>
+      </el-header>
+      <!-- <el-main>Main</el-main> -->
+      <el-main>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import Aside from './components/Aside.vue'
+import Header from './components/Header.vue'
 export default defineComponent({
   name: 'main',
   components: {
-    Aside
+    Aside,
+    Header
+  },
+  setup() {
+    let isExpandIcon = ref(false)
+    const changeIsExpandIcon = (IsExpandIcon: boolean) => {
+      console.log(IsExpandIcon)
+      isExpandIcon.value = IsExpandIcon
+    }
+    return {
+      isExpandIcon,
+      changeIsExpandIcon
+    }
   }
 })
 </script>
@@ -26,11 +43,18 @@ export default defineComponent({
   color: #333;
 }
 
+.el-header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
 .el-aside {
   background-color: #a9292c;
   color: #333;
   box-shadow: rgba(0, 0, 0, 0.3) 6px 0px 6px;
   z-index: 1;
+  transition: width 0.3s;
 }
 
 .el-main {
