@@ -11,13 +11,12 @@
 <script lang='ts'>
 import { defineComponent, reactive, ref } from 'vue'
 import { ElForm } from 'element-plus'
-import { useStore } from 'vuex'
+import store from '@/store'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'AccountTab',
   setup() {
-    const store = useStore()
     const router = useRouter()
 
     const usernameForm = reactive({

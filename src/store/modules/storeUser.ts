@@ -30,14 +30,23 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
     },
     setRoleMenuTree(state, roleMenuTree: any) {
       state.roleMenuTree = roleMenuTree
+    },
+    quitLogin(state) { // 退出登录
+      state.token = ''
+      state.userInfo = ''
+      state.roleMenuTree = ''
+      localCache.deleteCache('token')
+      localCache.deleteCache('userInfo')
+      localCache.deleteCache('roleMenuTree')
     }
   },
   actions: { // 处理异步任务
     async userLogin({ commit }, data: demo) { // 用户登录
+      console.log(1)
       const {token, id} = await userLogin(data)
+      commit('setToken', token)
       const userInfo = await getUserInfo(id)
       const roleMenuTree = await getRoleMenuTree()
-      commit('setToken', token)
       commit('setUserInfo', userInfo)
       commit('setRoleMenuTree', roleMenuTree)
       localCache.setCache('token', token)
