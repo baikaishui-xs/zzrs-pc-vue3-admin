@@ -18,7 +18,7 @@ import { defineComponent, ref } from 'vue'
 import Aside from './components/Aside.vue'
 import Header from './components/Header.vue'
 export default defineComponent({
-  name: 'main',
+  name: 'layout',
   components: {
     Aside,
     Header
