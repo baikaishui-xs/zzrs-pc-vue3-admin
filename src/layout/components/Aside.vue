@@ -20,6 +20,7 @@
 </template>
 <script lang='ts'>
 import { defineComponent } from 'vue'
+import store from '@/store'
 export default defineComponent({
   name: 'Aside',
   props: {
@@ -29,59 +30,7 @@ export default defineComponent({
     }
   },
   setup() {
-    const menuTree = [
-      {
-        id: '2',
-        name: '系统总览',
-        icon: 'monitor',
-        children: [
-          {
-            id: '2-1',
-            name: '商品统计',
-            icon: 'monitor',
-            children: null
-          }
-        ]
-      },
-      {
-        id: '3',
-        name: '系统管理',
-        icon: 'Setting',
-        children: [
-          {
-            id: '3-1',
-            name: '用户管理',
-            icon: 'monitor',
-            children: null
-          },
-          {
-            id: '3-2',
-            icon: 'monitor',
-            name: '菜单管理',
-            children: null
-          },
-          {
-            id: '3-3',
-            icon: 'monitor',
-            name: '角色管理',
-            children: null
-          }
-        ]
-      },
-      {
-        id: '4',
-        name: '商品中心',
-        icon: 'Goods',
-        children: [
-          {
-            id: '4-1',
-            name: '商品信息',
-            icon: 'monitor',
-            children: null
-          }
-        ]
-      }
-    ]
+    const menuTree = store.state.user.roleMenuTree
 
     return {
       menuTree

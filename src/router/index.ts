@@ -13,6 +13,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/demo',
     component: () => import('@/views/demo/index.vue')
   },
+  {
+    path: "/:pathMatch(.*)",
+    component: () => import('@/views/notFound/index.vue')
+  }
 ]
 
 const router = createRouter({
