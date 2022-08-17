@@ -1,6 +1,8 @@
 import { Module } from 'vuex'
 import { userLogin, getUserInfo, getRoleMenuTree } from '@/api/apiUsername'
 import localCache from '@/utils/cache'
+import { mapMenusToRoutes } from '@/utils/mapMenus'
+import router from '@/router'
 
 interface ILoginState {
   token: string,
@@ -30,6 +32,12 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
     },
     setRoleMenuTree(state, roleMenuTree: any) {
       state.roleMenuTree = roleMenuTree
+
+      const routes = mapMenusToRoutes(roleMenuTree) // 用户所拥有的动态路由
+
+      routes.forEach((route) => {
+        router.addRoute('main', route) // 将用户所拥有的动态路由添加到路由中
+      })
     },
     quitLogin(state) { // 退出登录
       state.token = ''

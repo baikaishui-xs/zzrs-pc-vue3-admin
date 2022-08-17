@@ -5,6 +5,7 @@
   <div class="right-box">
     <el-dropdown>
       <div class="el-dropdown-link">
+        <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
         <span class="text">{{username}}</span>
         <el-icon class="el-icon--right">
           <arrow-down />
@@ -71,5 +72,8 @@ export default defineComponent({
   .text {
     font-size: 18px;
   }
+}
+.el-avatar {
+  margin-right: 6px;
 }
 </style>

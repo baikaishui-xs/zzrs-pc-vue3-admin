@@ -11,7 +11,7 @@
           <component :is="item.icon.substr(8)" style="width: 16px; height:16px; margin-left: 4px;" />
           <span v-if="!isExpandIcon" style="margin-left: 10px">{{item.name}}</span>
         </template>
-        <el-menu-item v-for="item1 in item.children" :key="item1.id" :index="item1.id" style="background-color: rgba(0, 0, 0, .3);">
+        <el-menu-item v-for="item1 in item.children" :key="item1.id" :index="item1.id" style="background-color: rgba(0, 0, 0, .3);" @click="routerJump(item1)">
           <span>{{item1.name}}</span>
         </el-menu-item>
       </el-sub-menu>
@@ -20,6 +20,7 @@
 </template>
 <script lang='ts'>
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 import store from '@/store'
 export default defineComponent({
   name: 'Aside',
@@ -32,8 +33,18 @@ export default defineComponent({
   setup() {
     const menuTree = store.state.user.roleMenuTree
 
+    const router = useRouter()
+
+    const routerJump = (item: any) => {
+      // 路由跳转
+      router.push({
+        path: item.url ?? '/not-found'
+      })
+    }
+
     return {
-      menuTree
+      menuTree,
+      routerJump
     }
   }
 })
