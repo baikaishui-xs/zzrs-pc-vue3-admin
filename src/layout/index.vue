@@ -8,7 +8,9 @@
         <Header @changeIsExpandIcon="changeIsExpandIcon"></Header>
       </el-header>
       <el-main>
-        <router-view></router-view>
+        <el-card>
+          <router-view></router-view>
+        </el-card>
       </el-main>
     </el-container>
   </el-container>
@@ -58,8 +60,14 @@ export default defineComponent({
 }
 
 .el-main {
-  background-color: #e9eef3;
+  background-color: #fff;
   color: #333;
+  .el-card {
+    padding-bottom: 0px;
+    /deep/.el-card__body {
+      padding-bottom: 0px;
+    }
+  }
 }
 
 body > .el-container {

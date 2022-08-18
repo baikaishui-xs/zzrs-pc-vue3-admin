@@ -4,14 +4,14 @@
     <span class="text" v-if="!isExpandIcon">电商后台管理系统</span>
   </div>
   <div class="bd">
-    <el-menu class="el-menu-vertical-demo" :collapse="isExpandIcon" active-text-color="#ffd04b" background-color="#AA292D" text-color="#fff" default-active="2" :collapse-transition="false">
-      <el-menu-item index="1">首页</el-menu-item>
+    <el-menu class="el-menu-vertical-demo" :collapse="isExpandIcon" active-text-color="#ffd04b" background-color="#AA292D" text-color="#fff" :default-active="storeDefaultActive" :collapse-transition="false">
+      <el-menu-item index="0" @click="routerJump('/main/home', '0')">首页</el-menu-item>
       <el-sub-menu :index="item.id + ''" v-for="item in menuTree" :key="item.id">
         <template #title>
           <component :is="item.icon.substr(8)" style="width: 16px; height:16px; margin-left: 4px;" />
           <span v-if="!isExpandIcon" style="margin-left: 10px">{{item.name}}</span>
         </template>
-        <el-menu-item v-for="item1 in item.children" :key="item1.id" :index="item1.id + ''" style="background-color: rgba(0, 0, 0, .3);" @click="routerJump(item1)">
+        <el-menu-item v-for="item1 in item.children" :key="item1.id" :index="item1.id + ''" style="background-color: rgba(0, 0, 0, .3);" @click="routerJump(item1.url, item1.id)">
           <span>{{item1.name}}</span>
         </el-menu-item>
       </el-sub-menu>
@@ -22,6 +22,7 @@
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import store from '@/store'
+import localCache from '@/utils/cache'
 export default defineComponent({
   name: 'Aside',
   props: {
@@ -35,16 +36,21 @@ export default defineComponent({
 
     const router = useRouter()
 
-    const routerJump = (item: any) => {
+    const routerJump = (item: any, index: number) => {
       // 路由跳转
       router.push({
-        path: item.url ?? '/not-found'
+        path: item ?? '/not-found'
       })
+
+      localCache.setCache('defaultActive', index + '')
     }
+
+    const storeDefaultActive = localCache.getCache('defaultActive') // 当前所在菜单
 
     return {
       menuTree,
-      routerJump
+      routerJump,
+      storeDefaultActive
     }
   }
 })

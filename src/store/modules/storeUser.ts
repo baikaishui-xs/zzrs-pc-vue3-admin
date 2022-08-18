@@ -7,7 +7,7 @@ import router from '@/router'
 interface ILoginState {
   token: string,
   userInfo: any,
-  roleMenuTree: any
+  roleMenuTree: any,
 }
 interface demo {
   name: string
@@ -20,7 +20,7 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
     return {
       token: '', // token
       userInfo: {}, // 用户信息
-      roleMenuTree: {} // 角色菜单树
+      roleMenuTree: {}, // 角色菜单树
     }
   },
   mutations: { // 修改 store 中的数据
@@ -46,7 +46,8 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       localCache.deleteCache('token')
       localCache.deleteCache('userInfo')
       localCache.deleteCache('roleMenuTree')
-    }
+      localCache.deleteCache('defaultActive')
+    },
   },
   actions: { // 处理异步任务
     async userLogin({ commit }, data: demo) { // 用户登录
@@ -78,7 +79,7 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       if (roleMenuTree) {
         commit('setRoleMenuTree', roleMenuTree)
       }
-    }
+    },
   },
 }
 
