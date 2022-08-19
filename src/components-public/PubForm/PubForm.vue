@@ -6,7 +6,7 @@
           <el-form-item :label='item.label' :rules="item.rules" :style="itemStyle">
             <el-input v-if="item.type === 'input' || item.type === 'password'" v-bind="item.otherOptions" :placeholder="item.placeholder" :show-password="item.type === 'password'" v-model="formData[`${item.field}`]" />
 
-            <el-select v-if="item.type === 'select'" v-bind="item.otherOptions" :placeholder="item.placeholder">
+            <el-select style="height: 40px;" v-if="item.type === 'select'" v-bind="item.otherOptions" :placeholder="item.placeholder">
               <el-option v-for='option in item.options' :key="option.value" :value="option.value">{{option.title}}</el-option>
             </el-select>
 
@@ -15,6 +15,9 @@
         </el-col>
       </el-row>
     </el-form>
+    <div class="footer-box">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 <script lang='ts'>
@@ -67,4 +70,13 @@ export default defineComponent({
 })
 </script>
 <style lang='scss' scoped>
+/deep/.el-form-item__label {
+  line-height: 40px;
+}
+.el-input {
+  height: 40px;
+}
+/deep/.el-input__wrapper {
+  height: 40px;
+}
 </style>
