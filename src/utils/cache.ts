@@ -5,8 +5,6 @@
 
 class LocalCache {
   setCache(key: string, value: any) {
-    console.log(key)
-    console.log(value)
     window.localStorage.setItem(key, JSON.stringify(value))
   }
 

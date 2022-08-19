@@ -1,6 +1,10 @@
 <template>
   <div class="left-box">
     <component :is="isExpandIcon ? 'Expand' : 'Fold'" class="icon" @click="foldIcon" />
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item>{{breadcrumb1 ?? '首页'}}</el-breadcrumb-item>
+      <el-breadcrumb-item>{{breadcrumb2}}</el-breadcrumb-item>
+    </el-breadcrumb>
   </div>
   <div class="right-box">
     <el-dropdown>
@@ -20,7 +24,7 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import store from '@/store'
 export default defineComponent({
@@ -32,6 +36,9 @@ export default defineComponent({
 
     const username = store.state.user.userInfo.name // 用户名
 
+    const breadcrumb1 = computed(() => store.state.layout.breadcrumb1) // 一级 面包屑导航
+    const breadcrumb2 = computed(() => store.state.layout.breadcrumb2) // 二级 面包屑导航
+
     const foldIcon = () => {
       isExpandIcon.value = !isExpandIcon.value
       emit('changeIsExpandIcon', isExpandIcon.value)
@@ -39,19 +46,25 @@ export default defineComponent({
 
     const quitLogin = () => {
       store.commit('user/quitLogin')
-      router.push('./login')
+      router.push('/login')
     }
 
     return {
       isExpandIcon,
       foldIcon,
       username,
-      quitLogin
+      quitLogin,
+      breadcrumb1,
+      breadcrumb2
     }
   }
 })
 </script>
 <style lang='scss' scoped>
+.left-box {
+  display: flex;
+  align-items: center;
+}
 .icon {
   width: 30px;
   height: 30px;
@@ -76,5 +89,13 @@ export default defineComponent({
 }
 .el-avatar {
   margin-right: 6px;
+}
+.el-breadcrumb {
+  /deep/.el-breadcrumb__inner {
+    color: #fff;
+    &:hover {
+      color: #ffd04b;
+    }
+  }
 }
 </style>

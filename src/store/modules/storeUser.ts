@@ -3,6 +3,7 @@ import { userLogin, getUserInfo, getRoleMenuTree } from '@/api/apiUsername'
 import localCache from '@/utils/cache'
 import { mapMenusToRoutes } from '@/utils/mapMenus'
 import router from '@/router'
+import store from '@/store'
 
 interface ILoginState {
   token: string,
@@ -47,6 +48,10 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       localCache.deleteCache('userInfo')
       localCache.deleteCache('roleMenuTree')
       localCache.deleteCache('defaultActive')
+      localCache.deleteCache('breadcrumb1')
+      localCache.deleteCache('breadcrumb2')
+      store.commit('layout/setBreadcrumb1', undefined)
+      store.commit('layout/setBreadcrumb2', undefined)
     },
   },
   actions: { // 处理异步任务
