@@ -1,10 +1,10 @@
 <template>
-  <PubFrom v-bind="pubFormConfig"></PubFrom>
+  <PubFrom v-bind="pubFormConfig" v-model="PubFormData"></PubFrom>
 </template>
 <script lang='ts'>
-import { defineComponent } from 'vue'
-import PubFrom from '@/components-public/form/index.vue'
-import { IPubFormConfig } from '@/components-public/form/types/index.b'
+import { defineComponent, ref } from 'vue'
+import PubFrom from '@/components-public/PubForm/PubForm.vue'
+import { IPubFormConfig } from '@/components-public/PubForm/types/index.b'
 export default defineComponent({
   name: 'user',
   components: {
@@ -25,16 +25,19 @@ export default defineComponent({
       },
       formItems: [
         {
+          field: 'name',
           type: 'input',
           label: '用户名',
           placeholder: '请输入用户名'
         },
         {
+          field: 'password',
           type: 'password',
           label: '密码',
           placeholder: '请输入密码'
         },
         {
+          field: 'select',
           type: 'select',
           label: '喜欢的运动',
           placeholder: '请选择喜欢的运动',
@@ -44,6 +47,7 @@ export default defineComponent({
           ]
         },
         {
+          field: 'datepicker',
           type: 'datepicker',
           label: '创建时间',
           placeholder: '请选择创建时间范围',
@@ -55,8 +59,18 @@ export default defineComponent({
         }
       ]
     }
+
+    const PubFormData = ref({
+      id: '',
+      name: '',
+      password: '',
+      sport: '',
+      createTime: ''
+    })
+
     return {
-      pubFormConfig
+      pubFormConfig,
+      PubFormData
     }
   }
 })

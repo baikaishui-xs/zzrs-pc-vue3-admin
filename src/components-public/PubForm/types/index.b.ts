@@ -13,5 +13,6 @@ export interface IFormItem {
   rules?: any[]
   placeholder?: any
   options?: any[]
-  otherOptions?: any
+  otherOptions?: any,
+  field: string
 }

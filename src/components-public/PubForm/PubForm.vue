@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="8" v-for="item in formItems" :key="item.label" v-bind="colLayout">
           <el-form-item :label='item.label' :rules="item.rules" :style="itemStyle">
-            <el-input v-if="item.type === 'input' || item.type === 'password'" v-bind="item.otherOptions" :placeholder="item.placeholder" :show-password="item.type === 'password'" />
+            <el-input v-if="item.type === 'input' || item.type === 'password'" v-bind="item.otherOptions" :placeholder="item.placeholder" :show-password="item.type === 'password'" v-model="formData[`${item.field}`]" />
 
             <el-select v-if="item.type === 'select'" v-bind="item.otherOptions" :placeholder="item.placeholder">
               <el-option v-for='option in item.options' :key="option.value" :value="option.value">{{option.title}}</el-option>
@@ -18,11 +18,16 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import type { IFormItem } from './types/index.b'
+import { watch } from 'vue'
 export default defineComponent({
   name: 'PubForm',
   props: {
+    modelValue: {
+      type: Object,
+      required: true
+    },
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => []
@@ -45,6 +50,18 @@ export default defineComponent({
         sm: 24,
         xs: 24
       })
+    }
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const formData = ref({ ...props.modelValue })
+
+    watch(formData, (newValue) => emit('update:modelValue', newValue), {
+      deep: true
+    })
+
+    return {
+      formData
     }
   }
 })
