@@ -8,9 +8,7 @@
         <Header @changeIsExpandIcon="changeIsExpandIcon"></Header>
       </el-header>
       <el-main>
-        <el-card>
-          <router-view></router-view>
-        </el-card>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>

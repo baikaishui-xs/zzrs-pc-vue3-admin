@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import 'default-passive-events'
 import { setupStore } from './store'
 
 import 'normalize.css'
@@ -10,6 +10,8 @@ import '@/styles/init.scss'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
+
+import registerProperties from '@/utils/globalProperties'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -23,4 +25,5 @@ app.use(store)
 setupStore()
 app.use(router)
 app.use(ElementPlus)
+app.use(registerProperties)
 app.mount('#app')

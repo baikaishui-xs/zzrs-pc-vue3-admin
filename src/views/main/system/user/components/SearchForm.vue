@@ -2,7 +2,7 @@
   <PubFrom v-bind="pubFormConfig" v-model="PubFormData">
     <template #footer>
       <div class="footer-box">
-        <el-button class="btn" type="primary" size="medium">搜索</el-button>
+        <el-button class="btn" type="primary">搜索</el-button>
         <el-button class="btn" type="info">重置</el-button>
       </div>
     </template>
@@ -85,7 +85,6 @@ export default defineComponent({
 <style lang='scss' scoped>
 .footer-box {
   text-align: right;
-  padding: 0 50px 20px 0;
 }
 .btn {
   width: 80px;
