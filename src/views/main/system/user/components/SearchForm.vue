@@ -2,8 +2,8 @@
   <PubFrom v-bind="pubFormConfig" v-model="PubFormData">
     <template #footer>
       <div class="footer-box">
-        <el-button class="btn" type="primary">搜索</el-button>
-        <el-button class="btn" type="info">重置</el-button>
+        <el-button class="btn" type="primary" :icon="Search">搜索</el-button>
+        <el-button class="btn" type="info" :icon="Refresh">重置</el-button>
       </div>
     </template>
   </PubFrom>
@@ -12,6 +12,7 @@
 import { defineComponent, ref } from 'vue'
 import PubFrom from '@/components-public/PubForm/PubForm.vue'
 import { IPubFormConfig } from '@/components-public/PubForm/types/index.b'
+import { Search, Refresh } from '@element-plus/icons-vue'
 export default defineComponent({
   name: 'SearchForm',
   components: {
@@ -77,7 +78,9 @@ export default defineComponent({
 
     return {
       pubFormConfig,
-      PubFormData
+      PubFormData,
+      Search,
+      Refresh
     }
   }
 })
