@@ -1,6 +1,6 @@
 import { request } from '@/utils/request'
 
-import type { IUserLogin } from './types/username'
+import type { IUserLogin } from './types/apiUsername'
 
 export function userLogin(data: IUserLogin) { // 用户登录
   return request.post({

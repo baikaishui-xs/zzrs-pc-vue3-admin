@@ -4,28 +4,31 @@
       <el-row>
         <el-col :span="8" v-for="item in formItems" :key="item.label" v-bind="colLayout">
           <el-form-item :label='item.label' :rules="item.rules" :style="itemStyle">
-            <el-input v-if="item.type === 'input' || item.type === 'password'" v-bind="item.otherOptions" :placeholder="item.placeholder" :show-password="item.type === 'password'" v-model="formData[`${item.field}`]" />
+            <el-input v-if="item.type === 'input' || item.type === 'password'" v-bind="item.otherOptions" :placeholder="item.placeholder" :show-password="item.type === 'password'" v-model="userList[`${item.field}`]" />
 
             <el-select style="height: 40px;" v-if="item.type === 'select'" v-bind="item.otherOptions" :placeholder="item.placeholder">
               <el-option v-for='option in item.options' :key="option.value" :value="option.value">{{option.title}}</el-option>
             </el-select>
 
-            <el-date-picker v-if="item.type === 'datepicker'" v-bind="item.otherOptions"></el-date-picker>
+            <el-date-picker v-if="item.type === 'datepicker'" v-bind="item.otherOptions" v-model="userList[`${item.field}`]"></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <div class="footer-box">
-      <slot name="footer"></slot>
+      <el-button class="btn" type="primary" :icon="Search" @click="search">搜索</el-button>
+      <el-button class="btn" type="info" :icon="Refresh">重置</el-button>
     </div>
   </div>
 </template>
 <script lang='ts'>
 import { defineComponent, PropType, ref } from 'vue'
-import type { IFormItem } from './types/index.b'
+import type { IFormItem } from './types'
 import { watch } from 'vue'
+import { Search, Refresh } from '@element-plus/icons-vue'
+import store from '@/store'
 export default defineComponent({
-  name: 'PubForm',
+  name: 'PubSearchForm',
   props: {
     modelValue: {
       type: Object,
@@ -55,16 +58,23 @@ export default defineComponent({
       })
     }
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'search'],
   setup(props, { emit }) {
-    const formData = ref({ ...props.modelValue })
+    const userList = ref({ ...props.modelValue })
 
-    watch(formData, (newValue) => emit('update:modelValue', newValue), {
+    watch(userList, (newValue) => emit('update:modelValue', newValue), {
       deep: true
     })
 
+    const search = () => {
+      emit('search')
+    }
+
     return {
-      formData
+      userList,
+      Search,
+      Refresh,
+      search
     }
   }
 })
@@ -77,6 +87,13 @@ export default defineComponent({
   height: 40px;
 }
 /deep/.el-input__wrapper {
+  height: 40px;
+}
+.footer-box {
+  text-align: right;
+}
+.btn {
+  width: 80px;
   height: 40px;
 }
 </style>

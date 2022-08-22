@@ -24,28 +24,24 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
-import { apiGetUserList, apiDelUser } from '@/api/apiUserManagement'
+import { defineComponent, computed } from 'vue'
+import { apiDelUser } from '@/api/apiUserManagement'
 import PubTabList from '@/components-public/PubTabList/PubTabList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
+import store from '@/store'
 export default defineComponent({
   name: 'UserList',
   components: {
     PubTabList
   },
   setup() {
-    let userList: any = ref([])
-    const getUserList = () => {
-      apiGetUserList().then(({ list }) => {
-        userList.value = list
-      })
-    }
-    getUserList()
+    store.dispatch('userManage/getUserList')
+    let userList = computed(() => store.state.userManage.userList)
 
     const delUser = async (id: number) => {
       await apiDelUser(id)
 
-      await getUserList()
+      store.dispatch('userManage/getUserList')
     }
 
     const tableColumnConfig = [

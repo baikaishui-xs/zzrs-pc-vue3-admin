@@ -1,8 +1,10 @@
 import { request } from '@/utils/request'
+import {  IGetUserList} from './types/apiUserManagement'
 
-export function apiGetUserList() { // 查询用户列表
+export function apiGetUserList(data: IGetUserList) { // 查询用户列表
   return request.post({
-    url: '/users/list'
+    url: '/users/list',
+    data
   })
 }
 

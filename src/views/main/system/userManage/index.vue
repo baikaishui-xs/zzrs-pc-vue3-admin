@@ -8,8 +8,8 @@
 </template>
 <script lang='ts'>
 import { defineComponent } from 'vue'
-import SearchForm from '@/views/main/system/user/components/SearchForm.vue'
-import UserList from '@/views/main/system/user/components/UserList.vue'
+import SearchForm from '@/views/main/system/userManage//components/SearchForm.vue'
+import UserList from '@/views/main/system/userManage/components/UserList.vue'
 export default defineComponent({
   name: 'user',
   components: {

@@ -3,12 +3,14 @@ import { createStore } from 'vuex'
 import demo from './modules/storeDemo'
 import user from './modules/storeUser'
 import layout from './modules/storeLayout'
+import userManage from './modules/storeUserManage'
 
 const store = createStore({
   modules: { // 注册模块
     demo,
     user,
-    layout
+    layout,
+    userManage
   },
 })
 
