@@ -1,6 +1,6 @@
 <template>
   <div class="box-bd">
-    <PubTabList :listData="userList" :tableColumnConfig=" tableColumnConfig" :showIndexCol="showIndexCol" :title="title">
+    <PubTableList :listData="userList" :tableColumnConfig=" tableColumnConfig" :showIndexCol="showIndexCol" :title="title">
       <!-- 头部按钮 -->
       <template #headerBtn>
         <el-button class="new-user-btn" type="primary">新建用户</el-button>
@@ -20,19 +20,19 @@
       <template #updateAt={row}>
         {{$dayjs(row.updateAt).format('YYYY-MM-DD HH:mm:ss')}}
       </template>
-    </PubTabList>
+    </PubTableList>
   </div>
 </template>
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
 import { apiDelUser } from '@/api/apiUserManagement'
-import PubTabList from '@/components-public/PubTabList/PubTabList.vue'
+import PubTableList from '@/components-public/PubTableList/PubTableList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import store from '@/store'
 export default defineComponent({
   name: 'UserList',
   components: {
-    PubTabList
+    PubTableList
   },
   setup() {
     store.dispatch('userManage/getUserList')

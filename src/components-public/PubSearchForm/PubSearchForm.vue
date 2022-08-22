@@ -17,7 +17,6 @@
     </el-form>
     <div class="footer-box">
       <el-button class="btn" type="primary" :icon="Search" @click="search">搜索</el-button>
-      <el-button class="btn" type="info" :icon="Refresh">重置</el-button>
     </div>
   </div>
 </template>
@@ -25,7 +24,7 @@
 import { defineComponent, PropType, ref } from 'vue'
 import type { IFormItem } from './types'
 import { watch } from 'vue'
-import { Search, Refresh } from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
 import store from '@/store'
 export default defineComponent({
   name: 'PubSearchForm',
@@ -73,7 +72,6 @@ export default defineComponent({
     return {
       userList,
       Search,
-      Refresh,
       search
     }
   }
