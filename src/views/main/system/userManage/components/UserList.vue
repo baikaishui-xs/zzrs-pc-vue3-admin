@@ -25,7 +25,7 @@
 </template>
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
-import { apiDelUser } from '@/api/apiUserManagement'
+import { apiDelUser } from '@/api/apiUserManage'
 import PubTableList from '@/components-public/PubTableList/PubTableList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import store from '@/store'

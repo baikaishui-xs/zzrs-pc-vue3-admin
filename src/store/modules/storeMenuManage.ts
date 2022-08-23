@@ -1,26 +1,26 @@
 import { Module } from 'vuex'
-import { apiGetUserList } from '@/api/apiUserManage'
+import { apiGetMenuList } from '@/api/apiMenuManage'
 
 export interface ILoginState {
-  userList: any
+  menuList: any
 }
 
 const storeModule: Module<ILoginState, any> = {
   namespaced: true,
   state() { // 公共数据
     return {
-      userList: [],
+      menuList: [],
     }
   },
   mutations: { // 修改 store 中的数据
-    setUserList(state, userList: any[]) {
-      state.userList = userList
+    setMenuList(state, menuList: any[]) {
+      state.menuList = menuList
     }
   },
   actions: { // 处理异步任务
-    async getUserList({ commit }, data) {
-      const { list } = await apiGetUserList(data)
-      commit('setUserList', list)
+    async getMenuList({ commit }) {
+      const { list } = await apiGetMenuList()
+      commit('setMenuList', list)
     }
   },
 }

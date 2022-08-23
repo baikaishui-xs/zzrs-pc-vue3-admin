@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="border-box">
-    <el-table :data="listData" border stripe>
+    <el-table :data="listData" border stripe v-bind="childrenProps">
       <el-table-column v-if="showIndexCol" label="序号" type="index" align="center" width="60px"></el-table-column>
       <el-table-column v-for="(item) in tableColumnConfig" :key="item.prop" v-bind="item" show-overflow-tooltip>
         <template #default="{row}">
@@ -42,6 +42,10 @@ export default defineComponent({
     title: {
       type: String,
       required: true
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
     }
   },
   setup() {

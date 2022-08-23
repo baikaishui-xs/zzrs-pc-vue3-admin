@@ -5,6 +5,7 @@ import user from './modules/storeUser'
 import layout from './modules/storeLayout'
 import userManage from './modules/storeUserManage'
 import goods from './modules/storeGoods'
+import menuManage from './modules/storeMenuManage'
 
 const store = createStore({
   modules: { // 注册模块
@@ -12,7 +13,8 @@ const store = createStore({
     user,
     layout,
     userManage,
-    goods
+    goods,
+    menuManage
   },
 })
 
