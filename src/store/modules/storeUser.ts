@@ -1,14 +1,15 @@
 import { Module } from 'vuex'
 import { userLogin, getUserInfo, getRoleMenuTree } from '@/api/apiUsername'
 import localCache from '@/utils/cache'
-import { mapMenusToRoutes } from '@/utils/mapMenus'
-import router from '@/router'
+import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/mapMenus'
+  import router from '@/router'
 import store from '@/store'
 
 interface ILoginState {
   token: string,
   userInfo: any,
   roleMenuTree: any,
+  permissions: string[]
 }
 interface demo {
   name: string
@@ -22,6 +23,7 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       token: '', // token
       userInfo: {}, // 用户信息
       roleMenuTree: {}, // 角色菜单树
+      permissions: [] // 用户所拥有的操作权限
     }
   },
   mutations: { // 修改 store 中的数据
@@ -39,11 +41,15 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       routes.forEach((route) => {
         router.addRoute('main', route) // 将用户所拥有的动态路由添加到路由中
       })
+
+      const permissions = mapMenusToPermissions(roleMenuTree) // 获取 用户所拥有的操作权限
+      state.permissions = permissions
     },
     quitLogin(state) { // 退出登录
       state.token = ''
       state.userInfo = ''
       state.roleMenuTree = ''
+      state.permissions = []
       localCache.deleteCache('token')
       localCache.deleteCache('userInfo')
       localCache.deleteCache('roleMenuTree')
@@ -60,7 +66,7 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
       const {token, id} = await userLogin(data)
       commit('setToken', token)
       const userInfo = await getUserInfo(id)
-      const roleMenuTree = await getRoleMenuTree()
+      const roleMenuTree = await getRoleMenuTree(userInfo.role.id)
       commit('setUserInfo', userInfo)
       commit('setRoleMenuTree', roleMenuTree)
       localCache.setCache('token', token)

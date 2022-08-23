@@ -16,8 +16,8 @@ export function getUserInfo(id: number) { // 查询某个用户
   })
 }
 
-export function getRoleMenuTree() { // 查询角色菜单树
+export function getRoleMenuTree(roleID: number) { // 查询角色菜单树
   return request.get({
-    url: '/role/1/menu'
+    url: `/role/${roleID}/menu`
   })
 }

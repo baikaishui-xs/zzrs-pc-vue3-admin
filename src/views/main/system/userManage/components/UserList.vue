@@ -29,6 +29,7 @@ import { apiDelUser } from '@/api/apiUserManage'
 import PubTableList from '@/components-public/PubTableList/PubTableList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import store from '@/store'
+import { usePermission } from '@/hooks/use-permission'
 export default defineComponent({
   name: 'UserList',
   components: {
@@ -84,6 +85,11 @@ export default defineComponent({
 
     const title = '用户列表'
 
+    const isCreate = usePermission('users', 'create')
+    const isUpdate = usePermission('users', 'update')
+    const isDelete = usePermission('users', 'delete')
+    const isQuery = usePermission('users', 'query')
+
     return {
       userList,
       delUser,
@@ -91,7 +97,10 @@ export default defineComponent({
       showIndexCol,
       Delete,
       Edit,
-      title
+      title,
+      isCreate,
+      isUpdate,
+      isDelete
     }
   }
 })

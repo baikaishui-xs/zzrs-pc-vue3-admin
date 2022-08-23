@@ -36,3 +36,19 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] { // 筛选
 
   return routes
 }
+
+export function mapMenusToPermissions(userMenus: any[]) { // 从 roleMenuTree 字段中筛选出所有的操作权限
+  const permissions: string[] = []
+  const _recurseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetPermission(menu.children ?? [])
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission)
+      }
+    }
+  }
+  _recurseGetPermission(userMenus)
+
+  return permissions
+}
