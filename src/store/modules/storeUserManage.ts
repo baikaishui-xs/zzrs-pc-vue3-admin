@@ -3,7 +3,6 @@ import { apiGetUserList } from '@/api/apiUserManagement'
 
 export interface ILoginState {
   userList: any
-  // PubSearchFormData: any
 }
 
 const storeModule: Module<ILoginState, any> = {
@@ -11,11 +10,6 @@ const storeModule: Module<ILoginState, any> = {
   state() { // 公共数据
     return {
       userList: [],
-      // PubSearchFormData: {
-      //   id: '',
-      //   name: '',
-      //   password: '',
-      // }
     }
   },
   mutations: { // 修改 store 中的数据

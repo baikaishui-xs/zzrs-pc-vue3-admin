@@ -10,7 +10,7 @@
   <div class="border-box">
     <el-table :data="listData" border stripe>
       <el-table-column v-if="showIndexCol" label="序号" type="index" align="center" width="60px"></el-table-column>
-      <el-table-column v-for="(item, index) in tableColumnConfig" :key="index" v-bind="item">
+      <el-table-column v-for="(item) in tableColumnConfig" :key="item.prop" v-bind="item" show-overflow-tooltip>
         <template #default="{row}">
           <slot :name="item.slotName" :row="row">
             {{row[item.prop]}}

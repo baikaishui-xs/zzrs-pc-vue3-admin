@@ -4,13 +4,15 @@ import demo from './modules/storeDemo'
 import user from './modules/storeUser'
 import layout from './modules/storeLayout'
 import userManage from './modules/storeUserManage'
+import goods from './modules/storeGoods'
 
 const store = createStore({
   modules: { // 注册模块
     demo,
     user,
     layout,
-    userManage
+    userManage,
+    goods
   },
 })
 
