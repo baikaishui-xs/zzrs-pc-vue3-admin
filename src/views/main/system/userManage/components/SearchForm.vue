@@ -1,10 +1,10 @@
 <template>
-  <PubFrom v-bind="PubSearchFormConfig" v-model="PubSearchFormData" @search="search"></PubFrom>
+  <PubFrom v-bind="PubFormConfig" v-model="PubFormData"></PubFrom>
 </template>
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
-import PubFrom from '@/components-public/PubSearchForm/PubSearchForm.vue'
-import { IPubSearchFormConfig } from '@/components-public/PubSearchForm/types'
+import PubFrom from '@/components-public/PubForm/PubForm.vue'
+import { IPubFormConfig } from '@/components-public/PubForm/types'
 import store from '@/store'
 export default defineComponent({
   name: 'SearchForm',
@@ -12,7 +12,7 @@ export default defineComponent({
     PubFrom
   },
   setup() {
-    const PubSearchFormConfig: IPubSearchFormConfig = {
+    const PubFormConfig: IPubFormConfig = {
       labelWidth: '120px',
       itemStyle: {
         padding: '10px 30px'
@@ -56,7 +56,7 @@ export default defineComponent({
       ]
     }
 
-    const PubSearchFormData = ref({
+    const PubFormData = ref({
       name: '',
       realname: '',
       cellphone: '',
@@ -64,12 +64,12 @@ export default defineComponent({
     })
 
     const search = () => {
-      store.dispatch('userManage/getUserList', PubSearchFormData.value)
+      store.dispatch('userManage/getUserList', PubFormData.value)
     }
 
     return {
-      PubSearchFormConfig,
-      PubSearchFormData,
+      PubFormConfig,
+      PubFormData,
       search
     }
   }

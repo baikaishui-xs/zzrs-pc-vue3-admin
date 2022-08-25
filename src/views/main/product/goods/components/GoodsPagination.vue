@@ -15,7 +15,7 @@ export default defineComponent({
 
     const handleCurrentChange = (val: any) => {
       // 监听页码
-      offset = val * pageSize.value - pageSize.value
+      offset = (val - 1) * pageSize.value
       store.dispatch('goods/getGoodsList', {
         size: pageSize.value,
         offset: offset

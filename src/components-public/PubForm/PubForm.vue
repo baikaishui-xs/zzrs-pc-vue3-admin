@@ -2,7 +2,7 @@
   <div class="form-container">
     <el-form :label-width="labelWidth">
       <el-row>
-        <el-col :span="8" v-for="item in formItems" :key="item.label" v-bind="colLayout">
+        <el-col v-for="item in formItems" :key="item.label" v-bind="colLayout">
           <el-form-item :label='item.label' :rules="item.rules" :style="itemStyle">
             <el-input v-if="item.type === 'input' || item.type === 'password'" v-bind="item.otherOptions" :placeholder="item.placeholder" :show-password="item.type === 'password'" v-model="userList[`${item.field}`]" />
 
@@ -15,9 +15,6 @@
         </el-col>
       </el-row>
     </el-form>
-    <div class="footer-box">
-      <el-button class="btn" type="primary" :icon="Search" @click="search">搜索</el-button>
-    </div>
   </div>
 </template>
 <script lang='ts'>
@@ -25,9 +22,8 @@ import { defineComponent, PropType, ref } from 'vue'
 import type { IFormItem } from './types'
 import { watch } from 'vue'
 import { Search } from '@element-plus/icons-vue'
-import store from '@/store'
 export default defineComponent({
-  name: 'PubSearchForm',
+  name: 'PubForm',
   props: {
     modelValue: {
       type: Object,
@@ -65,14 +61,9 @@ export default defineComponent({
       deep: true
     })
 
-    const search = () => {
-      emit('search')
-    }
-
     return {
       userList,
-      Search,
-      search
+      Search
     }
   }
 })

@@ -1,10 +1,11 @@
 type IFormType = 'input' | 'password' | 'select' | 'datepicker'
 
-export interface IPubSearchFormConfig {
+export interface IPubFormConfig {
   formItems: IFormItem[]
   labelWidth?: string
   itemStyle: any
   colLayout: any
+  isShowSearch?: boolean
 }
 
 export interface IFormItem {

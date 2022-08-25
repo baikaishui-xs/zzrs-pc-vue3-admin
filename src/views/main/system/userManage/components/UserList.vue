@@ -3,16 +3,16 @@
     <PubTableList :listData="userList" :tableColumnConfig=" tableColumnConfig" :showIndexCol="showIndexCol" :title="title">
       <!-- 头部按钮 -->
       <template #headerBtn>
-        <el-button class="new-user-btn" type="primary">新建用户</el-button>
+        <el-button class="new-user-btn" type="primary" @click="createUser">新建用户</el-button>
       </template>
 
       <!-- 自定义列 -->
       <template #enable={row}>
         <el-button plain :type="row.enable ? 'primary' : 'danger'">{{row.enable ? '启用' : '禁用'}}</el-button>
       </template>
-      <template #operate>
-        <el-button type="primary" :icon="Edit">编辑</el-button>
-        <el-button type="danger" :icon="Delete">删除</el-button>
+      <template #operate={row}>
+        <el-button type="primary" :icon="Edit" @click="editBtn(row)">编辑</el-button>
+        <el-button type="danger" :icon="Delete" @click="deleteUser(row)">删除</el-button>
       </template>
       <template #createAt={row}>
         {{$dayjs(row.createAt).format('YYYY-MM-DD HH:mm:ss')}}
@@ -39,8 +39,8 @@ export default defineComponent({
     store.dispatch('userManage/getUserList')
     let userList = computed(() => store.state.userManage.userList)
 
-    const delUser = async (id: number) => {
-      await apiDelUser(id)
+    const deleteUser = async (userInfo: any) => {
+      await apiDelUser(userInfo.id)
 
       store.dispatch('userManage/getUserList')
     }
@@ -90,9 +90,18 @@ export default defineComponent({
     const isDelete = usePermission('users', 'delete')
     const isQuery = usePermission('users', 'query')
 
+    const createUser = () => {
+      store.commit('userManage/setIsShowCreateUserDialog', true)
+    }
+
+    const editBtn = (userInfo: any) => {
+      store.commit('userManage/setIsShowEditUserDialog', true)
+      store.commit('userManage/setUserInfo', userInfo)
+    }
+
     return {
       userList,
-      delUser,
+      deleteUser,
       tableColumnConfig,
       showIndexCol,
       Delete,
@@ -100,7 +109,9 @@ export default defineComponent({
       title,
       isCreate,
       isUpdate,
-      isDelete
+      isDelete,
+      createUser,
+      editBtn
     }
   }
 })
