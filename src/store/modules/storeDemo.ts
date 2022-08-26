@@ -8,7 +8,7 @@ const storeModule: Module<ILoginState, any> = { // 第二个泛型为根组件�
   namespaced: true,
   state() { // 公共数据
     return {
-      token: '', // token
+      token: '111', // token
     }
   },
   mutations: { // 修改 store 中的数据
@@ -17,8 +17,13 @@ const storeModule: Module<ILoginState, any> = { // 第二个泛型为根组件�
     }
   },
   actions: { // 处理异步任务
-    async getUsernameLogin(context) { // 用户登录[用户名]
-      context.commit('setToken', '123456')
+    async getDemo({dispatch, state}) { // 用户登录[用户名]
+      console.log(1)
+      dispatch("getDemo1")
+      console.log(state.token)
+    },
+    async getDemo1() {
+      console.log(2)
     }
   },
 }

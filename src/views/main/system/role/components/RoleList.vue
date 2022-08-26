@@ -1,18 +1,15 @@
 <template>
   <div class="box-bd">
-    <PubTableList v-bind="pubTableListConfig" :listData="userList">
+    <PubTableList v-bind="pubTableListConfig" :listData="roleList">
       <!-- 头部按钮 -->
       <template #headerBtn>
-        <el-button class="new-user-btn" type="primary" @click="createUser">新建用户</el-button>
+        <el-button class="new-user-btn" type="primary" @click="createRole">新建角色</el-button>
       </template>
 
       <!-- 自定义列 -->
-      <template #enable={row}>
-        <el-button plain :type="row.enable ? 'primary' : 'danger'">{{row.enable ? '启用' : '禁用'}}</el-button>
-      </template>
       <template #operate={row}>
         <el-button type="primary" :icon="Edit" @click="editBtn(row)">编辑</el-button>
-        <el-button type="danger" :icon="Delete" @click="deleteUser(row)">删除</el-button>
+        <el-button type="danger" :icon="Delete" @click="deleteRole(row)">删除</el-button>
       </template>
       <template #createAt={row}>
         {{$dayjs(row.createAt).format('YYYY-MM-DD HH:mm:ss')}}
@@ -25,70 +22,52 @@
 </template>
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
-import { apiDelUser } from '@/api/apiUserManage'
+import { apiDelRole } from '@/api/apiRole'
 import PubTableList from '@/components-public/PubTableList/PubTableList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import store from '@/store'
 import { usePermission } from '@/hooks/use-permission'
 export default defineComponent({
-  name: 'UserList',
+  name: 'RoleList',
   components: {
     PubTableList
   },
   setup() {
-    store.dispatch('userManage/getUserList')
-    let userList = computed(() => store.state.userManage.userList)
+    store.dispatch('role/getRoleList')
+    let roleList = computed(() => store.state.role.roleList)
 
-    const deleteUser = async (userInfo: any) => {
-      await apiDelUser(userInfo.id)
+    const deleteRole = async (rowInfo: any) => {
+      await apiDelRole(rowInfo.id)
 
-      store.dispatch('userManage/getUserList')
+      store.dispatch('role/getRoleList')
     }
 
     const tableColumnConfig = [
-      { label: '用户名', prop: 'name', align: 'center' },
+      { label: '角色名', prop: 'name', align: 'center' },
       {
-        label: '真实姓名',
-        prop: 'realname',
+        label: '权限介绍',
+        prop: 'intro',
         align: 'center'
-      },
-      {
-        label: '手机号码',
-        prop: 'cellphone',
-        align: 'center'
-      },
-      {
-        label: '状态',
-        prop: 'enable',
-        align: 'center',
-        slotName: 'enable',
-        width: '100'
       },
       {
         label: '创建时间',
         prop: 'createAt',
         align: 'center',
-        width: '200',
         slotName: 'createAt'
       },
       {
         label: '更新时间',
         prop: 'updateAt',
         align: 'center',
-        width: '200',
         slotName: 'updateAt'
       },
       { label: '操作', align: 'center', slotName: 'operate', width: '200' }
     ]
 
-    const showIndexCol = true // 是否显示序号列
-
-    const title = '用户列表'
-
     const pubTableListConfig = {
-      tableColumnConfig: tableColumnConfig,
-      showIndexCol: showIndexCol,
-      title: title
+      tableColumnConfig,
+      showIndexCol: true,
+      title: '角色列表'
     }
 
     const isCreate = usePermission('users', 'create')
@@ -96,29 +75,38 @@ export default defineComponent({
     const isDelete = usePermission('users', 'delete')
     const isQuery = usePermission('users', 'query')
 
-    const createUser = () => {
-      store.commit('userManage/setIsShowCreateUserDialog', true)
+    const createRole = () => {
+      store.commit('role/setIsShowCreateRoleDialog', true)
     }
 
-    const editBtn = (userInfo: any) => {
-      store.commit('userManage/setIsShowEditUserDialog', true)
-      store.commit('userManage/setUserInfo', userInfo)
+    const editBtn = (rowInfo: any) => {
+      store.commit('role/setIsShowEditRoleDialog', true)
+      store.commit('role/setRowInfo', rowInfo)
+
+      // 设置 defaultCheckedKeys
+      const defaultCheckedKeys: any = []
+      rowInfo.menuList.map((item: any) => {
+        // store.state.user.roleMenuTree.map((item: any) => {
+        defaultCheckedKeys.push(item.id)
+        item.children.map((item1: any) => {
+          defaultCheckedKeys.push(item1.id)
+        })
+      })
+      store.commit('role/setDefaultCheckedKeys', defaultCheckedKeys)
     }
 
     return {
-      userList,
-      deleteUser,
+      roleList,
       tableColumnConfig,
-      showIndexCol,
       Delete,
       Edit,
-      title,
       isCreate,
       isUpdate,
       isDelete,
-      createUser,
+      createRole,
       editBtn,
-      pubTableListConfig
+      pubTableListConfig,
+      deleteRole
     }
   }
 })

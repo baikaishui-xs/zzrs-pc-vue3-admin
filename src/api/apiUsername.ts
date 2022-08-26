@@ -2,7 +2,7 @@ import { request } from '@/utils/request'
 
 import type { IUserLogin } from './types/apiUsername'
 
-export function userLogin(data: IUserLogin) { // 用户登录
+export function apiUserLogin(data: IUserLogin) { // 用户登录
   return request.post({
     url: '/login',
     data,
@@ -10,13 +10,13 @@ export function userLogin(data: IUserLogin) { // 用户登录
   })
 }
 
-export function getUserInfo(id: number) { // 查询某个用户
+export function apiGetUserInfo(id: number) { // 查询某个用户
   return request.get({
     url: `/users/${id}`
   })
 }
 
-export function getRoleMenuTree(roleID: number) { // 查询角色菜单树
+export function apiGetRoleMenuTree(roleID: number) { // 查询角色菜单树
   return request.get({
     url: `/role/${roleID}/menu`
   })

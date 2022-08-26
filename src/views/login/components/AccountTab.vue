@@ -41,6 +41,10 @@ export default defineComponent({
       usernameFormRef.value?.validate(async (isOK) => {
         if (isOK) {
           await store.dispatch('user/userLogin', usernameForm)
+          await store.dispatch(
+            'user/getRoleMenuTree',
+            store.state.user.userInfo.role.id
+          )
           router.push('./main')
           if (isRememberPassword) {
             localStorage.setItem('name', usernameForm.name)

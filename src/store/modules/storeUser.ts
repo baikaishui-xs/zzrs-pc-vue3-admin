@@ -1,5 +1,5 @@
 import { Module } from 'vuex'
-import { userLogin, getUserInfo, getRoleMenuTree } from '@/api/apiUsername'
+import { apiUserLogin, apiGetUserInfo, apiGetRoleMenuTree } from '@/api/apiUsername'
 import localCache from '@/utils/cache'
 import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/mapMenus'
   import router from '@/router'
@@ -9,7 +9,8 @@ interface ILoginState {
   token: string,
   userInfo: any,
   roleMenuTree: any,
-  permissions: string[]
+  permissions: string[],
+  userID: any
 }
 interface demo {
   name: string
@@ -21,6 +22,7 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
   state() { // 公共数据
     return {
       token: '', // token
+      userID: '',
       userInfo: {}, // 用户信息
       roleMenuTree: {}, // 角色菜单树
       permissions: [] // 用户所拥有的操作权限
@@ -29,6 +31,9 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
   mutations: { // 修改 store 中的数据
     setToken(state, token: string) {
       state.token = token
+    },
+    setUserID(state, userID: any) {
+      state.userID = userID
     },
     setUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
@@ -61,16 +66,25 @@ const storeModule: Module<ILoginState, any> = { // 第一个泛型为当前模�
     },
   },
   actions: { // 处理异步任务
-    async userLogin({ commit }, data: demo) { // 用户登录
-      console.log(1)
-      const {token, id} = await userLogin(data)
+    async userLogin({ dispatch, state }, data: demo) { // 用户登录
+      await dispatch('login', data)
+      await dispatch('getUserInfo', state.userID)
+      await dispatch('getRoleMenuTree', state.userInfo.role.id)
+    },
+    async login({commit}, data) {
+      const {token, id} = await apiUserLogin(data)
       commit('setToken', token)
-      const userInfo = await getUserInfo(id)
-      const roleMenuTree = await getRoleMenuTree(userInfo.role.id)
-      commit('setUserInfo', userInfo)
-      commit('setRoleMenuTree', roleMenuTree)
+      commit('setUserID', id)
       localCache.setCache('token', token)
+    },
+    async getUserInfo({ commit }, id) {
+      const userInfo = await apiGetUserInfo(id)
+      commit('setUserInfo', userInfo)
       localCache.setCache('userInfo', userInfo)
+    },
+    async getRoleMenuTree({ commit }, roleID) {
+      const roleMenuTree = await apiGetRoleMenuTree(roleID)
+      commit('setRoleMenuTree', roleMenuTree)
       localCache.setCache('roleMenuTree', roleMenuTree)
     },
     loadLocalLogin({ commit }) {

@@ -50,16 +50,16 @@ export default defineComponent({
     let isShowDialog = ref(false)
     watch(isShoEditUserDialog, (newValue) => (isShowDialog.value = newValue))
 
-    const changeIsShowDialog = (newValue: boolean) => {
-      store.commit('userManage/setIsShowEditUserDialog', newValue)
-    }
-
     const close = () => {
       store.commit('userManage/setIsShowEditUserDialog', false)
     }
 
+    const changeIsShowDialog = (newValue: boolean) => {
+      close()
+    }
+
     const cancel = () => {
-      store.commit('userManage/setIsShowEditUserDialog', false)
+      close()
     }
 
     const sure = async () => {
@@ -75,7 +75,7 @@ export default defineComponent({
           }
           await apiEditUser(UserID, userInfoField)
           await store.dispatch('userManage/getUserList')
-          store.commit('userManage/setIsShowEditUserDialog', false)
+          close()
         }
       })
     }

@@ -1,5 +1,5 @@
 import { Module } from 'vuex'
-import { apiGetUserList, apiGetRoleList } from '@/api/apiUserManage'
+import { apiGetUserList } from '@/api/apiUserManage'
 
 export interface ILoginState {
   userList: any
