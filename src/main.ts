@@ -5,6 +5,8 @@ import store from './store'
 import 'default-passive-events'
 import { setupStore } from './store'
 
+import '@/utils/permission'
+
 import 'normalize.css'
 import '@/styles/init.scss'
 
