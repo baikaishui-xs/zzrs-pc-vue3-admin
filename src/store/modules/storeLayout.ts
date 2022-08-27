@@ -10,7 +10,7 @@ const storeModule: Module<ILayoutState, any> = { // 第二个泛型为根组件�
   namespaced: true,
   state() { // 公共数据
     return {
-      breadcrumb1: '',
+      breadcrumb1: '首页',
       breadcrumb2: '',
     }
   },
