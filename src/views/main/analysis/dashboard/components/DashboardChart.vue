@@ -1,43 +1,31 @@
 <template>
   <div id="chart" ref="chartRef" :style="{height: '300px'}"></div>
-
 </template>
 <script lang='ts'>
 import { defineComponent, getCurrentInstance, onMounted, ref } from 'vue'
 export default defineComponent({
-  name: 'CakeChart',
+  name: 'DashboardChart',
   setup() {
     // 图表配置项
     const chartConfig = {
       title: {
-        text: '饼图',
-        subtext: 'Fake Data'
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      legend: {
-        orient: 'vertical',
-        bottom: 'bottom'
+        text: '仪表盘' // 主标题
       },
       series: [
         {
-          name: 'Access From',
-          type: 'pie',
-          radius: '50%',
+          type: 'gauge', // 图表类型：仪表盘
           data: [
-            { value: 1048, name: '淘宝' },
-            { value: 735, name: '天猫' },
-            { value: 580, name: '京东' },
-            { value: 484, name: '拼多多' }
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            // 每一个对象就代表一个指针
+            {
+              value: 88,
+              // 指针的样式
+              itemStyle: {
+                color: 'red' // 指针的颜色
+              }
             }
-          }
+          ],
+          min: 50, // 仪表盘数值范围
+          max: 100
         }
       ]
     }
@@ -54,7 +42,6 @@ export default defineComponent({
 
       chart.setOption(chartConfig)
     })
-
     return {
       chartRef
     }

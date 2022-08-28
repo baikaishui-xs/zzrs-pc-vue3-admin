@@ -1,45 +1,61 @@
 <template>
-  <div id="xxx-chart" ref="divRef" :style="{width: '300px', height: '300px'}"></div>
-  {{$demo}}
+  <el-row :gutter="20">
+    <el-col :span="16">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+    <el-col :span="8">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+  </el-row>
+  <el-row :gutter="20">
+    <el-col :span="8">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+    <el-col :span="8">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+    <el-col :span="4">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+    <el-col :span="4">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+  </el-row>
+  <el-row :gutter="20">
+    <el-col :span="4">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+    <el-col :span="16">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+    <el-col :span="4">
+      <div class="grid-content ep-bg-purple" />
+    </el-col>
+  </el-row>
 </template>
 <script lang='ts'>
 import { defineComponent, ref, getCurrentInstance, onMounted } from 'vue'
 export default defineComponent({
   name: 'demo',
   setup() {
-    const xxxChartConfig = {
-      title: {
-        text: 'ECharts 入门示例'
-      },
-      tooltip: {},
-      legend: {
-        data: ['销量']
-      },
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }
-      ]
-    }
-    const divRef = ref<HTMLElement>()
-    onMounted(() => {
-      // setup 生命周期中 HTML 结构还没有渲染，获取不到元素的实例，所以要放到 onMounted 生命周期中
-
-      let { proxy }: any = getCurrentInstance()
-      const xxxChart = proxy.$echarts.init(divRef.value!)
-      xxxChart.setOption(xxxChartConfig)
-    })
-
-    return {
-      divRef
-    }
+    return {}
   }
 })
 </script>
-<style lang='scss' scoped></style>
+<style lang='scss' scoped>
+.el-row {
+  margin-bottom: 20px;
+}
+.el-row:last-child {
+  margin-bottom: 0;
+}
+.el-col {
+  border-radius: 4px;
+}
+
+.grid-content {
+  background: pink;
+  border-radius: 4px;
+  min-height: 36px;
+}
+</style>
