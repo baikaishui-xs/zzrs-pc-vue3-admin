@@ -17,7 +17,7 @@ class ClAxios {
     this.axios.interceptors.request.use( // 请求拦截器
       (request) => {
         const token = store.state.user.token
-        if (token) request.headers.Authorization = `Bearer ${token}` // 这里需要把 headers 的类型改成 any
+        if (token) request.headers!.Authorization = `Bearer ${token}` // 这里需要把 headers 的类型改成 any
         if (this.isShowLoading) {
           this.loading = ElLoading.service({ // 开启 Loading 动画
             text: '正在加载中',
