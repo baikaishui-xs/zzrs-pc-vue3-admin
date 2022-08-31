@@ -1,6 +1,7 @@
 <template>
   <div class='login-container'>
     <div class="main">
+      <img class="logo" src="@/assets/images/logo.png" />
       <h1 class="title">后台管理系统</h1>
       <Panel ref="panelRef"></Panel>
       <div class="password-options">
@@ -45,18 +46,28 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #b81324;
+  background: #161616;
   .main {
+    width: 400px;
     padding: 20px;
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: #fff;
     border-radius: 10px;
+    box-shadow: 0 0 16px #fff;
+    .logo {
+      height: 150px;
+      position: absolute;
+      top: -80px;
+    }
+    .title {
+      margin-top: 66px;
+    }
   }
-  .title {
-  }
+
 
   .password-options {
     width: 100%;
@@ -81,6 +92,8 @@ export default defineComponent({
   .btn {
     width: 100%;
     height: 40px;
+    background: #A9292C;
+    border: 0;
   }
 }
 .forgetPassword {

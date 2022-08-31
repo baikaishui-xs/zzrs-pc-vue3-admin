@@ -45,7 +45,7 @@ export default defineComponent({
             'user/getRoleMenuTree',
             store.state.user.userInfo.role.id
           )
-          router.push('./main')
+          router.push('/main/home')
           if (isRememberPassword) {
             localStorage.setItem('name', usernameForm.name)
             localStorage.setItem('password', usernameForm.password)

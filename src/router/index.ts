@@ -2,6 +2,10 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    redirect: '/main',
+  },
+  {
     path: '/main',
     name: 'main',
     children: [
