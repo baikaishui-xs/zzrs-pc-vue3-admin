@@ -20,8 +20,8 @@ export default defineComponent({
     const router = useRouter()
 
     const usernameForm = reactive({
-      name: localStorage.getItem('name') || '', // 账号
-      password: localStorage.getItem('password') || '' // 密码
+      name: localStorage.getItem('name') || 'coderwhy', // 账号
+      password: localStorage.getItem('password') || '123456' // 密码
     })
 
     const usernameFormRules = {

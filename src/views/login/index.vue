@@ -49,6 +49,7 @@ export default defineComponent({
   background: #161616;
   .main {
     width: 400px;
+    margin-top: -20px;
     padding: 20px;
     display: flex;
     position: relative;
