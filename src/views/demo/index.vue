@@ -1,5 +1,5 @@
 <template>
-  自动化部署测试
+  自动化部署测试1
 </template>
 <script lang='ts'>
 import { defineComponent } from 'vue'
