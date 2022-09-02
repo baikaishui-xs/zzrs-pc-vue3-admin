@@ -10,8 +10,8 @@ import '@/utils/permission'
 import 'normalize.css'
 import '@/styles/init.scss'
 
-import ElementPlus from 'element-plus'
-import 'element-plus/theme-chalk/index.css'
+// import ElementPlus from 'element-plus'
+// import 'element-plus/theme-chalk/index.css'
 
 import registerProperties from '@/utils/globalProperties'
 
@@ -26,6 +26,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(store)
 setupStore()
 app.use(router)
-app.use(ElementPlus)
+// app.use(ElementPlus)
 app.use(registerProperties)
 app.mount('#app')
