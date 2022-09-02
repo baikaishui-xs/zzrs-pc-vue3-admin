@@ -1,26 +1,30 @@
 import { request } from '@/utils/request'
+import type { IApiNewRole, IApiEditRole } from './types/apiRole'
 
-export function apiGetRoleList() { // 获取 角色列表
+// 获取 角色列表
+export function apiGetRoleList() {
   return request.post({
     url: '/role/list'
   })
 }
 
-export function apiNewRole(data: any) { // 新建 角色
+// 新建 角色
+export function apiNewRole(data: IApiNewRole) {
   return request.post({
     url: '/role',
     data
   })
 }
-
-export function apiEditRole(id: number, data: any) { // 编辑 角色
+// 编辑 角色
+export function apiEditRole(id: number, data: IApiEditRole) {
   return request.patch({
     url: `/role/${id}`,
     data
   })
 }
 
-export function apiDelRole(id: number) { // 删除 角色
+// 删除 角色
+export function apiDelRole(id: number) {
   return request.delete({
     url: `/role/${id}`
   })

@@ -13,9 +13,9 @@
             <span v-if="!isExpandIcon" style="margin-left: 10px">{{item.name}}</span>
           </template>
           <template v-for="item1 in item.children" :key="item1.id">
-          <el-menu-item v-if="item1.name !== '部门管理' && item1.name !== '商品类别'" :index="item1.id + ''" style="background-color: rgba(0, 0, 0, .3);" @click="routerJump(item, item1)">
-            <span>{{item1.name}}</span>
-          </el-menu-item>
+            <el-menu-item v-if="item1.name !== '部门管理' && item1.name !== '商品类别'" :index="item1.id + ''" style="background-color: rgba(0, 0, 0, .3);" @click="routerJump(item, item1)">
+              <span>{{item1.name}}</span>
+            </el-menu-item>
           </template>
         </el-sub-menu>
       </template>

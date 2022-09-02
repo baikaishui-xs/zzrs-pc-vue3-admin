@@ -94,8 +94,8 @@ export default defineComponent({
       realname: '',
       password: '',
       cellphone: '',
-      departmentId: '',
-      roleId: ''
+      departmentId: 0,
+      roleId: 0
     })
 
     const visibleChange = (val: boolean) => {

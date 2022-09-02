@@ -2,7 +2,7 @@ import { Module } from 'vuex'
 import { apiUserLogin, apiGetUserInfo, apiGetRoleMenuTree } from '@/api/apiUsername'
 import localCache from '@/utils/cache'
 import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/mapMenus'
-  import router from '@/router'
+import router from '@/router'
 import store from '@/store'
 
 interface ILoginState {

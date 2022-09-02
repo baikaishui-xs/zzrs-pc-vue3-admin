@@ -45,10 +45,11 @@ export default defineComponent({
     // 将图表配置项设置给 echarts 实例对象
     const chartRef = ref<HTMLElement>()
     onMounted(() => {
-      let { proxy }: any = getCurrentInstance()
+      const proxy = getCurrentInstance()
+      // let { proxy }: any = getCurrentInstance()
 
       // 初始化 Echarts 实例对象 // 语法：init(元素, 主题, 选项)
-      const chart = proxy.$echarts.init(chartRef.value!, 'light', {
+      const chart = proxy?.$echarts.init(chartRef.value!, 'light', {
         renderer: 'svg' // 渲染器
       })
 
