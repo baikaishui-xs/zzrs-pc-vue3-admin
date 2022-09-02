@@ -1,40 +1,8 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="16">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-    <el-col :span="8">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-  </el-row>
-  <el-row :gutter="20">
-    <el-col :span="8">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-    <el-col :span="8">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-    <el-col :span="4">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-    <el-col :span="4">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-  </el-row>
-  <el-row :gutter="20">
-    <el-col :span="4">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-    <el-col :span="16">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-    <el-col :span="4">
-      <div class="grid-content ep-bg-purple" />
-    </el-col>
-  </el-row>
+  自动化部署测试
 </template>
 <script lang='ts'>
-import { defineComponent, ref, getCurrentInstance, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'demo',
   setup() {
@@ -42,20 +10,4 @@ export default defineComponent({
   }
 })
 </script>
-<style lang='scss' scoped>
-.el-row {
-  margin-bottom: 20px;
-}
-.el-row:last-child {
-  margin-bottom: 0;
-}
-.el-col {
-  border-radius: 4px;
-}
-
-.grid-content {
-  background: pink;
-  border-radius: 4px;
-  min-height: 36px;
-}
-</style>
+<style lang='scss' scoped></style>
