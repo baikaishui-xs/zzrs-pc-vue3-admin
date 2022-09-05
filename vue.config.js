@@ -1,6 +1,9 @@
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const productionGzipExtensions = ['js', 'css']
+const webpack = require('webpack')
 
 module.exports = {
   devServer: {
@@ -21,14 +24,29 @@ module.exports = {
     }
   },
   configureWebpack: {
-    devtool: 'source-map',
+    devtool: 'none',
     plugins: [
       AutoImport({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver()]
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [ElementPlusResolver()]
       }),
-    ],
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // 压缩成 gz 格式
+      new CompressionWebpackPlugin({
+        filename: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        threshold: 10240, // 压缩超过 10k 的资源
+        minRatio: 0.8,
+        deleteOriginalAssets: false // 删除原文件
+      }),
+      // 压缩成 br 格式
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 5,
+        minChunkSize: 100
+      })
+    ]
   }
 }

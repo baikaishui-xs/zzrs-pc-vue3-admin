@@ -13,6 +13,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
     "axios": "^0.27.2",
+    "compression-webpack-plugin": "^5.0.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.11.5",
     "default-passive-events": "^2.0.0",
