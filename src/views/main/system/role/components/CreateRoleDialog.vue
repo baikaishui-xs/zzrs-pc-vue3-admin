@@ -21,6 +21,7 @@ import { apiNewRole } from '@/api/apiRole'
 import { apiGetMenuList } from '@/api/apiMenuManage'
 import { ElForm } from 'element-plus'
 import store from '@/store'
+import { ElMessage } from 'element-plus'
 export default defineComponent({
   name: 'CreateRoleDialog',
   setup() {
@@ -56,6 +57,11 @@ export default defineComponent({
         if (isOK) {
           formData.menuList = treeRef.value?.getCheckedKeys()
           await apiNewRole(formData)
+          ElMessage({
+            showClose: true,
+            message: '新建角色成功',
+            type: 'success'
+          })
           store.dispatch('role/getRoleList')
           close()
         }

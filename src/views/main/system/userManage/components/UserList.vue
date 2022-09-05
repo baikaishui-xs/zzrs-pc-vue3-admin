@@ -30,6 +30,7 @@ import PubTableList from '@/components-public/PubTableList/PubTableList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import store from '@/store'
 import { usePermission } from '@/hooks/use-permission'
+import { ElMessage } from 'element-plus'
 export default defineComponent({
   name: 'UserList',
   components: {
@@ -41,7 +42,11 @@ export default defineComponent({
 
     const deleteUser = async (userInfo: any) => {
       await apiDelUser(userInfo.id)
-
+      ElMessage({
+        showClose: true,
+        message: '删除成功',
+        type: 'success'
+      })
       store.dispatch('userManage/getUserList')
     }
 

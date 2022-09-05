@@ -8,7 +8,7 @@
         <el-input v-model="createUserForm.realname" />
       </el-form-item>
       <el-form-item label="用户密码" label-width="80px" prop="password">
-        <el-input v-model="createUserForm.password" />
+        <el-input v-model="createUserForm.password" disabled />
       </el-form-item>
       <el-form-item label="电话号码" label-width="80px" prop="cellphone">
         <el-input v-model="createUserForm.cellphone" />
@@ -38,7 +38,7 @@ import {
   apiCreateUser
 } from '@/api/apiUserManage'
 import store from '@/store'
-import { ElForm } from 'element-plus'
+import { ElForm, ElMessage } from 'element-plus'
 export default defineComponent({
   name: 'CreateUserDialog',
   setup() {
@@ -71,6 +71,11 @@ export default defineComponent({
         if (isOK) {
           await apiCreateUser(createUserForm)
           await store.dispatch('userManage/getUserList')
+          ElMessage({
+            showClose: true,
+            message: '新用户成功',
+            type: 'success'
+          })
           store.commit('userManage/setIsShowCreateUserDialog', false)
         }
       })
@@ -92,10 +97,10 @@ export default defineComponent({
     const createUserForm = reactive({
       name: '',
       realname: '',
-      password: '',
+      password: '123456',
       cellphone: '',
-      departmentId: 0,
-      roleId: 0
+      departmentId: '',
+      roleId: ''
     })
 
     const visibleChange = (val: boolean) => {

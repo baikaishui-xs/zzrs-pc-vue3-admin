@@ -27,6 +27,7 @@ import PubTableList from '@/components-public/PubTableList/PubTableList.vue'
 import { Delete, Edit } from '@element-plus/icons-vue'
 import store from '@/store'
 import { usePermission } from '@/hooks/use-permission'
+import { ElMessage } from 'element-plus'
 export default defineComponent({
   name: 'RoleList',
   components: {
@@ -38,6 +39,12 @@ export default defineComponent({
 
     const deleteRole = async (rowInfo: any) => {
       await apiDelRole(rowInfo.id)
+
+      ElMessage({
+        showClose: true,
+        message: '删除角色成功',
+        type: 'success'
+      })
 
       store.dispatch('role/getRoleList')
     }

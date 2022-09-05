@@ -11,7 +11,7 @@ import 'normalize.css'
 import '@/styles/init.scss'
 
 // import ElementPlus from 'element-plus'
-// import 'element-plus/theme-chalk/index.css'
+import 'element-plus/theme-chalk/index.css'
 
 import registerProperties from '@/utils/globalProperties'
 

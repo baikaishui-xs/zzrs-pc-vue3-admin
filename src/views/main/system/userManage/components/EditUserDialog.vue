@@ -29,7 +29,7 @@
 </template>
 <script lang='ts'>
 import { defineComponent, computed, ref, watch } from 'vue'
-import { ElForm } from 'element-plus'
+import { ElForm, ElMessage } from 'element-plus'
 import {
   apiGetDepartmentList,
   apiGetRoleList,
@@ -52,6 +52,7 @@ export default defineComponent({
 
     const close = () => {
       store.commit('userManage/setIsShowEditUserDialog', false)
+      formRef.value?.resetFields()
     }
 
     const changeIsShowDialog = (newValue: boolean) => {
@@ -75,6 +76,11 @@ export default defineComponent({
           }
           await apiEditUser(UserID, userInfoField)
           await store.dispatch('userManage/getUserList')
+          ElMessage({
+            showClose: true,
+            message: '编辑用户成功',
+            type: 'success'
+          })
           close()
         }
       })

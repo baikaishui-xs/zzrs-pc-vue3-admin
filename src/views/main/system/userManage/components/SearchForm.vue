@@ -1,11 +1,14 @@
 <template>
   <PubFrom v-bind="PubFormConfig" v-model="PubFormData"></PubFrom>
+  <el-button class="search-btn" type="primary" :icon="Search" @click="search">搜索</el-button>
 </template>
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
 import PubFrom from '@/components-public/PubForm/PubForm.vue'
 import { IPubFormConfig } from '@/components-public/PubForm/types'
+import { Search } from '@element-plus/icons-vue'
 import store from '@/store'
+import { ElMessage } from 'element-plus'
 export default defineComponent({
   name: 'SearchForm',
   components: {
@@ -65,15 +68,28 @@ export default defineComponent({
 
     const search = () => {
       store.dispatch('userManage/getUserList', PubFormData.value)
+      ElMessage({
+        showClose: true,
+        message: '搜索成功',
+        type: 'success'
+      })
     }
 
     return {
       PubFormConfig,
       PubFormData,
-      search
+      search,
+      Search
     }
   }
 })
 </script>
 <style lang='scss' scoped>
+.search-btn {
+  height: 40px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

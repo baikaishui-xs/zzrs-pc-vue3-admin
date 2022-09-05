@@ -10,8 +10,8 @@ export interface IApiCreateUser {
   realname: string
   password: string
   cellphone: string
-  departmentId: number
-  roleId: number
+  departmentId: string
+  roleId: string
 }
 
 export interface IApiEditUser {

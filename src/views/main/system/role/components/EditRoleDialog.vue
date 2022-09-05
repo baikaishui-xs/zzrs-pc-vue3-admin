@@ -20,7 +20,7 @@ import { defineComponent, computed, watch, ref, reactive } from 'vue'
 import { apiEditRole } from '@/api/apiRole'
 import store from '@/store'
 import { apiGetMenuList } from '@/api/apiMenuManage'
-import { ElForm } from 'element-plus'
+import { ElForm, ElMessage } from 'element-plus'
 export default defineComponent({
   name: 'EditRoleDialog',
   setup() {
@@ -60,6 +60,11 @@ export default defineComponent({
             'user/getRoleMenuTree',
             store.state.user.userInfo.role.id
           )
+          ElMessage({
+            showClose: true,
+            message: '编辑角色成功',
+            type: 'success'
+          })
           close()
         }
       })

@@ -13,6 +13,7 @@ import { defineComponent, reactive, ref } from 'vue'
 import { ElForm } from 'element-plus'
 import store from '@/store'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   name: 'AccountTab',
@@ -45,6 +46,11 @@ export default defineComponent({
             'user/getRoleMenuTree',
             store.state.user.userInfo.role.id
           )
+          ElMessage({
+            showClose: true,
+            message: '登录成功',
+            type: 'success'
+          })
           router.push('/main/home')
           if (isRememberPassword) {
             localStorage.setItem('name', usernameForm.name)
